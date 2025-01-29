@@ -1,0 +1,44 @@
+##linked list insertion
+
+class node{
+    int data;
+    node next;
+    node(int data){
+        this.data=data;
+        this.next=null;
+    }
+}
+class linkedlist{
+    node head,tail;
+    public void insert(int data){
+        node newnode=new node(data);
+        
+        if(head==null){
+            head=newnode;
+            tail=newnode;
+    }
+    else{
+        tail.next=newnode;
+        tail=newnode;
+    }
+    }
+    public void display(){
+        node temp=head;
+        while(temp!=null){
+            
+            System.out.println(temp.data);
+            temp=temp.next;
+            
+        }
+    }
+}
+public class Main
+{
+	public static void main(String[] args) {
+	    linkedlist link = new linkedlist();
+	    link.insert(100);
+	    link.insert(200);
+	    link.display();
+
+}
+}
