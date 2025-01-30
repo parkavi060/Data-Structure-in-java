@@ -1,0 +1,70 @@
+import java.util.*;
+class node{   //initializing the node
+    int data;
+    node next;
+    node prev;
+    node(int data){
+        this.data=data;
+        this.next=null;
+        this.prev=null;
+    }
+}
+class DLL{
+    
+    node head,tail;
+    public void insertbegin(int data){  //inserting at begin
+        node newnode=new node(data);
+        if(head==null){
+            head=tail=newnode;
+        }
+        else{
+            newnode.next=head;;
+            head.prev=newnode;
+            head=newnode;
+        }
+    
+}
+    public void delete(int data){  //delete at the beginning
+        if(head==null){
+            System.out.println("The list is empty");
+        }
+        if(head==tail){
+            head=tail=null;
+        }
+        else if(head!=null){
+            head=head.next;
+            head.prev=null;
+        }
+    }
+    public void display(){  //display function
+        node temp=head;
+        if(temp==null){
+            System.out.println("Empty");
+        }
+        while(temp!=null){
+            System.out.print(temp.data);
+            if(temp.next!=null){
+                System.out.print("<-->");
+            }
+            temp=temp.next;
+        }
+        System.out.println();
+    }
+
+}
+public class Main{
+    public static void main(String [] args){
+        Scanner scan=new Scanner (System.in);
+        DLL doubly=new DLL();
+        System.out.println("Enter the elements of the linked list:");
+       
+        for(int i=0;i<=4;i++){
+            int elements=scan.nextInt();
+            doubly.insertbegin(elements);
+        }
+        System.out.println("The elements in the linked list are:");
+
+        doubly.display();
+        
+    }
+}
