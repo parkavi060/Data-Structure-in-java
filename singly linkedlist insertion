@@ -1,44 +1,104 @@
-##linked list insertion
-
+import java.util.*;
+//Singly linked list
 class node{
     int data;
     node next;
-    node(int data){
-        this.data=data;
+    node(int data){   //constructor(used to initialize the node)
+        this. data=data;   //this keyword is used to refer the current object in the method or class
         this.next=null;
     }
 }
-class linkedlist{
-    node head,tail;
-    public void insert(int data){
+class SLL{
+    node head, tail;
+    public void insert(int data){  //inserting the elements
         node newnode=new node(data);
-        
         if(head==null){
-            head=newnode;
+            head=tail=newnode;
+        }else{
+            tail.next=newnode;
             tail=newnode;
-    }
-    else{
-        tail.next=newnode;
-        tail=newnode;
-    }
-    }
-    public void display(){
-        node temp=head;
-        while(temp!=null){
-            
-            System.out.println(temp.data);
-            temp=temp.next;
-            
         }
     }
-}
-public class Main
-{
-	public static void main(String[] args) {
-	    linkedlist link = new linkedlist();
-	    link.insert(100);
-	    link.insert(200);
-	    link.display();
+    public void insertAtBegin(int data) {//insert at begin
+        node newnode = new node(data);
+
+            newnode.next = head;
+            head = newnode;
+        }
+    public void insertAtSpecificPos(int pos,int data){  //inserting at specific position declare position and data
+        node newnode=new node(data);
+        node temp=head;
+        for(int i=0;i<pos-1;i++){
+            temp=temp.next;
+            newnode.next=temp.next;
+            temp.next=newnode;
+
+        }
+
+
+
+    }
+    public void delete(){  //normal delete function
+        if(head==null){
+            System.out.println("The list is empty");
+        }
+        else{
+            head=head.next;
+        }
+    }
+    public void deleteAtEnd(){   //delete at begining
+        node temp=head;
+        if(head==null){
+            System.out.println("The list is empty");
+        }
+        else{
+            while(temp.next.next!=null){      //loop runs until temp.next.next==null
+                temp=temp.next;
+            }
+            temp.next=null;
+        }
+    }
+    public void deleteAtSpecificPos(int pos){  //deleting at a specific position
+        if(head==null){
+            System.out.println("The list is empty");
+        }
+        node temp=head;
+        if(pos==1){
+            head=head.next;
+        }
+        else{
+            for(int i=0;i<pos-1&&temp!=null;i++){
+                temp=temp.next;
+                if(temp==head||temp==null){
+                    System.out.println("Invalid position");
+                }
+            }
+            temp.next=temp.next.next;
+        }
+    }
+    public void display(){  //display function
+        node temp=head;
+        while(temp!=null){
+            System.out.println(temp.data);
+            temp=temp.next;
+        }
+
+    }
 
 }
+public class Main {
+    public static void main(String[] args) {
+        SLL singly=new SLL();
+        singly.insert(100);
+        singly.insert(200);
+        singly.insert(300);
+        singly.insert(400);
+        singly.insertAtBegin(500);
+        singly.insertAtSpecificPos(2,800);
+        singly.delete();
+       singly.deleteAtEnd();
+       singly.deleteAtSpecificPos(3);
+
+        singly.display();
+    }
 }
