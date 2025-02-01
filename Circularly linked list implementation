@@ -1,0 +1,104 @@
+//circularly linked list
+class CLLNode{
+    int data;
+    CLLNode next;
+    CLLNode(int data){   //constructor(used to initialize the node)
+        this. data=data;   //this keyword is used to refer the current object in the method or class
+        this.next=null;
+    }
+}
+class CLL{
+    CLLNode head, tail;
+    public void insert(int data){  //inserting the elements
+        CLLNode newnode=new CLLNode(data);
+        if(head==null){
+            head=tail=newnode;
+            newnode.next=head;
+        }else{
+
+            newnode.next=head;
+            tail.next=newnode;
+            tail=newnode;
+        }
+    }
+    public void insertAtBegin(int data) {//insert at begin
+        CLLNode newnode = new CLLNode(data);
+
+        newnode.next = head;
+        tail.next=newnode;
+        head = newnode;
+    }
+    public void insertAtSpecificPos(int pos,int data){  //inserting at specific position declare position and data
+        CLLNode newnode=new CLLNode(data);
+        CLLNode temp=head;
+        for(int i=0;i<pos-1 ;i++){
+            temp=temp.next;
+            newnode.next=temp.next;
+            temp.next=newnode;
+        }
+    }
+    public void delete(){  //normal delete function
+        if(head==null){
+            System.out.println("The list is empty");
+        }
+        else{
+            head=head.next;
+            tail.next=head;
+        }
+    }
+    public void deleteAtEnd(){   //delete at end
+        CLLNode temp=head;
+        if(head==null){
+            System.out.println("The list is empty");
+        }
+        else{
+            while(temp.next!=tail) {
+                temp = temp.next;
+            }
+            temp.next=head;
+            tail=temp;
+
+
+
+
+        }
+    }
+    public void deleteAtSpecificPos(int pos) {  //deleting at a specific position
+        if (head == null) {
+            System.out.println("The list is empty");
+        }
+        CLLNode temp = head;
+        if (pos == 1) {
+            head = head.next;
+            tail.next = head;
+        } else {
+            for (int i = 0; i < pos - 1; i++) {
+                temp = temp.next;
+            }
+            temp.next = temp.next.next;
+        }
+    }
+    public void display(){  //display function
+        CLLNode temp=head;
+        do{
+            System.out.print(temp.data+"  ");
+            temp=temp.next;
+        }while(temp!=head);
+    }
+}
+public class CircularlyLinkedList {
+    public static void main(String[] args) {
+        CLL circularly=new CLL();
+        circularly.insert(100);
+        circularly.insert(200);
+        circularly.insert(300);
+        circularly.insert(400);
+        circularly.insertAtBegin(500);
+        circularly.insertAtSpecificPos(2,800);
+        circularly.delete();
+        circularly.deleteAtEnd();
+        circularly.deleteAtSpecificPos(3);
+
+        circularly.display();
+    }
+}
