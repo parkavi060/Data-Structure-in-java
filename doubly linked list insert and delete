@@ -1,70 +1,117 @@
 import java.util.*;
-class node{   //initializing the node
+
+//doubly linked list
+class DLLNode{
     int data;
-    node next;
-    node prev;
-    node(int data){
-        this.data=data;
+    DLLNode next;
+    DLLNode prev;
+    DLLNode(int data){   //constructor(used to initialize the node)
+        this. data=data;   //this keyword is used to refer the current object in the method or class
         this.next=null;
         this.prev=null;
     }
 }
-class DLL{
-    
-    node head,tail;
-    public void insertbegin(int data){  //inserting at begin
-        node newnode=new node(data);
+class DLL {
+    DLLNode head, tail;
+
+    public void insert(int data) {  //inserting the elements
+        DLLNode newnode = new DLLNode(data);
+        if (head == null) {
+            head = tail = newnode;
+        } else {
+            tail.next = newnode;
+            newnode.prev = tail;
+            tail = newnode;
+        }
+    }
+
+    public void insertBegin(int data) {    //insert at begin
+        DLLNode newnode = new DLLNode(data);
+        if (head == null) {
+            System.out.println("The list is empty");
+        } else {
+            newnode.next = head;
+            head.prev = newnode;
+            head = newnode;
+        }
+    }
+    public void insertAtSpecificPos(int pos,int data){  //inserting at specific position declare position and data
+        DLLNode newnode=new DLLNode(data);
+        DLLNode temp=head;
+        for(int i=0;i<pos-1;i++) {
+            temp = temp.next;
+        }
+            newnode.next=temp.next;
+            temp.next.prev=newnode;
+            temp.next=newnode;
+            newnode.prev=temp;
+
+
+    }
+    public void delete(){  //normal delete function
         if(head==null){
-            head=tail=newnode;
+            System.out.println("The list is empty");
         }
         else{
-            newnode.next=head;;
-            head.prev=newnode;
-            head=newnode;
+            head=head.next;
         }
-    
-}
-    public void delete(int data){  //delete at the beginning
+    }
+    public void deleteAtEnd(){   //delete at begining
+        DLLNode temp=head;
         if(head==null){
             System.out.println("The list is empty");
         }
         if(head==tail){
             head=tail=null;
         }
-        else if(head!=null){
+        else{
+            tail=tail.prev;
+            tail.next=null;
+        }
+
+    }
+    public void deleteAtSpecificPos(int pos){  //deleting at a specific position
+        if(head==null){
+            System.out.println("The list is empty");
+        }
+        DLLNode temp=head;
+        if(pos==1){
             head=head.next;
-            head.prev=null;
+        }
+        else{
+            for(int i=0;i<pos-1&&temp!=null;i++){
+                temp=temp.next;
+               
+            }
+            temp.next=temp.next.next;
+            temp.next.prev=temp;
         }
     }
     public void display(){  //display function
-        node temp=head;
+        DLLNode temp=head;
         if(temp==null){
-            System.out.println("Empty");
+            System.out.println("List is Empty");
         }
         while(temp!=null){
-            System.out.print(temp.data);
-            if(temp.next!=null){
-                System.out.print("<-->");
-            }
+            System.out.println(temp.data);
             temp=temp.next;
         }
-        System.out.println();
+
     }
 
 }
-public class Main{
-    public static void main(String [] args){
-        Scanner scan=new Scanner (System.in);
+public class DoublyLinkedList {
+    public static void main(String[] args) {
         DLL doubly=new DLL();
-        System.out.println("Enter the elements of the linked list:");
-       
-        for(int i=0;i<=4;i++){
-            int elements=scan.nextInt();
-            doubly.insertbegin(elements);
-        }
-        System.out.println("The elements in the linked list are:");
-
+        doubly.insert(100);
+        doubly.insert(200);
+        doubly.insert(300);
+        doubly.insert(400);
+        doubly.insertBegin(500);
+        doubly.insertAtSpecificPos(3,700);
+        doubly.deleteAtEnd();
+        doubly.deleteAtSpecificPos(1);
         doubly.display();
-        
+
     }
 }
