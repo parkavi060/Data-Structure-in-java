@@ -1,0 +1,48 @@
+
+import java.util.*;
+public class Main
+{
+    public static void binarySearch(int a[],int size,int target){
+        int left=0;
+        int right=size-1;
+        int flag=0;
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            if(target==a[mid]){
+                System.out.println("Element found in the index:"+mid);
+                flag=1;
+                break;
+            }
+            else if(target<a[mid]){
+               right=mid-1;
+            }
+            else{
+                left=mid+1;
+            }
+        }
+        if(flag==0){
+            System.out.println("Element not found");
+        }
+    }
+	public static void main(String[] args) {
+	    Scanner scan=new Scanner(System.in);
+	    System.out.println("Enter the size of the array:");
+	    int size=scan.nextInt();
+	    System.out.println("Enter the elements of the array:");
+	    int a[]=new int[size];
+	    for(int i=0;i<size;i++){
+	        a[i]=scan.nextInt();
+	    }
+	    System.out.println("Elements after sorting:");
+	    Arrays.sort(a);                                //sorting the array if it is unsorted
+	    for(int i=0;i<size;i++){
+	        System.out.print(a[i]+" ");
+	    }
+	    System.out.println();
+	    System.out.println("Enter the target elements:");
+	    int target=scan.nextInt();
+	    binarySearch(a,size, target);
+        
+	    }
+	
+}
